@@ -71,8 +71,8 @@ function getAverage(value1, value2) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  return Math.hypot(x1 - x2, y1 - y2);
 }
 
 /**
@@ -416,11 +416,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  if (
-    typeof number === 'number' &&
-    Number.isFinite(number) &&
-    Math.round(number) === number
-  ) {
+  if (typeof number === 'number' && Number.isFinite(number)) {
     return true;
   }
   return false;
@@ -469,8 +465,8 @@ function getFloatOnString(str) {
  * '1.234', 2           => 1
  * '10', 8              => 8
  */
-function getIntegerOnString(/* str, base */) {
-  throw new Error('Not implemented');
+function getIntegerOnString(str, base) {
+  return Number.parseInt(str, base);
 }
 
 /**
@@ -558,8 +554,13 @@ function getIntegerPartNumber(number) {
  * 1, 2, 3       => 6
  * 0.1, 0.2, 0.3 => 0.6
  */
-function getSumOfNumbers(/* x1, x2, x3 */) {
-  throw new Error('Not implemented');
+function getSumOfNumbers(x1, x2, x3) {
+  const arrayX = [x1, x2, x3];
+  let sum = 0;
+  for (let i = 0; i < arrayX.length; i += 1) {
+    sum += arrayX[i];
+  }
+  return sum.toFixed(1);
 }
 
 /**
@@ -590,8 +591,10 @@ function getMaxNumber(firstNumber, secondNumber) {
  * -5, 0 => -5 | -4 | -3 | -2 | -1 | 0
  * -1, 1 => -1 | 0 | 1
  */
-function getRandomInteger(/* min, max */) {
-  throw new Error('Not implemented');
+function getRandomInteger(min, max) {
+  const minNumber = Math.ceil(min);
+  const maxNumber = Math.floor(max);
+  return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 }
 
 /**
@@ -604,8 +607,8 @@ function getRandomInteger(/* min, max */) {
  * @example:
  * 3, 4 => 5
  */
-function getHypotenuse(/* a, b */) {
-  throw new Error('Not implemented');
+function getHypotenuse(a, b) {
+  return Math.hypot(a, b);
 }
 
 /**
@@ -621,8 +624,16 @@ function getHypotenuse(/* a, b */) {
  * 10 => 5
  * 15 => 8
  */
-function getCountOfOddNumbers(/* number */) {
-  throw new Error('Not implemented');
+function getCountOfOddNumbers(number) {
+  let countNumber = 0;
+  const modulNumber = Math.abs(number);
+
+  for (let i = 0; i <= modulNumber; i += 1) {
+    if (i % 2 !== 0) {
+      countNumber += 1;
+    }
+  }
+  return countNumber;
 }
 
 module.exports = {
