@@ -108,8 +108,12 @@ function getLinearEquationRoot(a, b) {
  *   (0,-1) (1,0)    => π/2
  *   (0,1) (0,1)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const scalarAB = x1 * x2 + y1 * y2;
+  const moduleA = Math.sqrt(x1 * x1 + y1 * y1);
+  const moduleB = Math.sqrt(x2 * x2 + y2 * y2);
+  const angleVectors = scalarAB / (moduleA * moduleB);
+  return Math.acos(angleVectors);
 }
 
 /**
@@ -180,8 +184,9 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const mathString = Math.round(num / 10 ** pow).toString();
+  return Number(`${mathString}${'0'.repeat(pow)}`);
 }
 
 /**
@@ -201,8 +206,19 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  const sqNumber = Math.sqrt(n);
+
+  if (Number.isNaN(n) || !Number.isFinite(n) || n % 1 || n < 2) return false;
+  if (n % 2 === 0) return n === 2;
+  if (n % 3 === 0) return n === 3;
+
+  for (let i = 5; i <= sqNumber; i += 6) {
+    if (n % i === 0) return false;
+    if (n % (i + 2) === 0) return false;
+  }
+
+  return true;
 }
 
 /**
@@ -220,8 +236,12 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  const parseNumber = parseInt(value, 10);
+  if (!Number.isNaN(parseNumber)) {
+    return parseNumber;
+  }
+  return def;
 }
 
 /**
@@ -252,8 +272,18 @@ function getCube(num) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  let current = 0;
+  let previous = 1;
+  let next = index;
+
+  for (let i = 2; i <= index; i += 1) {
+    next = current + previous;
+    current = previous;
+    previous = next;
+  }
+
+  return next;
 }
 
 /**
@@ -267,8 +297,12 @@ function getFibonacciNumber(/* index */) {
  *   10 => 55 // (1+2+3+...+10)
  *   1  => 1
  */
-function getSumToN(/* n */) {
-  throw new Error('Not implemented');
+function getSumToN(n) {
+  let result = 0;
+  for (let i = 1; i <= n; i += 1) {
+    result += i;
+  }
+  return result;
 }
 
 /**
@@ -337,8 +371,8 @@ function getSine(num) {
  * 255, 16 => 'ff'
  * 2, 2    => '10'
  */
-function numberToStringInBase(/* number, base */) {
-  throw new Error('Not implemented');
+function numberToStringInBase(number, base) {
+  return number.toString(base);
 }
 
 /**
@@ -382,8 +416,8 @@ function toFixed(number, fractionDigits) {
  * 12345, 7    => '12345.00'
  * 12.345, 4   => '12.35'
  */
-function toPrecision(/* number, precision */) {
-  throw new Error('Not implemented');
+function toPrecision(number, precision) {
+  return number.toPrecision(precision);
 }
 
 /**
